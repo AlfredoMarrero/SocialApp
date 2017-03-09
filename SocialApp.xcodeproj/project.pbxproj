@@ -37,6 +37,7 @@
 		BB3F5F301E70ABBD000657B6 /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		BB3F5F321E70B08F000657B6 /* FancyField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyField.swift; sourceTree = "<group>"; };
 		BB3F5F341E70B215000657B6 /* FancyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButton.swift; sourceTree = "<group>"; };
+		BB3F5F361E71AC2B000657B6 /* SocialApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocialApp.entitlements; sourceTree = "<group>"; };
 		FF77F88F2BB3F8DB8D0A5556 /* Pods-SocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialApp/Pods-SocialApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +82,7 @@
 		BB3F5F121E6F57E2000657B6 /* SocialApp */ = {
 			isa = PBXGroup;
 			children = (
+				BB3F5F361E71AC2B000657B6 /* SocialApp.entitlements */,
 				BB3F5F2D1E70A931000657B6 /* Util */,
 				BB3F5F2A1E6F5D76000657B6 /* Resources */,
 				BB3F5F291E6F5D0F000657B6 /* Model */,
@@ -183,6 +185,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 657SX83TSQ;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
