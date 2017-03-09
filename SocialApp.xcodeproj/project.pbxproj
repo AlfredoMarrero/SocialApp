@@ -19,6 +19,7 @@
 		BB3F5F311E70ABBD000657B6 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F5F301E70ABBD000657B6 /* RoundButton.swift */; };
 		BB3F5F331E70B08F000657B6 /* FancyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F5F321E70B08F000657B6 /* FancyField.swift */; };
 		BB3F5F351E70B215000657B6 /* FancyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F5F341E70B215000657B6 /* FancyButton.swift */; };
+		BB3F5F381E71EB68000657B6 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F5F371E71EB68000657B6 /* FeedVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		BB3F5F321E70B08F000657B6 /* FancyField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyField.swift; sourceTree = "<group>"; };
 		BB3F5F341E70B215000657B6 /* FancyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FancyButton.swift; sourceTree = "<group>"; };
 		BB3F5F361E71AC2B000657B6 /* SocialApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocialApp.entitlements; sourceTree = "<group>"; };
+		BB3F5F371E71EB68000657B6 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		FF77F88F2BB3F8DB8D0A5556 /* Pods-SocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialApp/Pods-SocialApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				BB3F5F151E6F57E2000657B6 /* SignInVC.swift */,
+				BB3F5F371E71EB68000657B6 /* FeedVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				BB3F5F161E6F57E2000657B6 /* SignInVC.swift in Sources */,
 				BB3F5F311E70ABBD000657B6 /* RoundButton.swift in Sources */,
 				BB3F5F351E70B215000657B6 /* FancyButton.swift in Sources */,
+				BB3F5F381E71EB68000657B6 /* FeedVC.swift in Sources */,
 				BB3F5F141E6F57E2000657B6 /* AppDelegate.swift in Sources */,
 				BB3F5F2C1E70A7EA000657B6 /* FancyVIew.swift in Sources */,
 				BB3F5F2F1E70A94D000657B6 /* Constants.swift in Sources */,
