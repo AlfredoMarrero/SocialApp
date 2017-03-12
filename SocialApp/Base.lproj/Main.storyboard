@@ -155,7 +155,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dd1-pl-Rba">
-                                        <rect key="frame" x="161.5" y="23" width="52.5" height="31.5"/>
+                                        <rect key="frame" x="161.5" y="22.5" width="52.5" height="31.5"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="23"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -173,13 +173,17 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nOa-nw-zGV">
                                         <rect key="frame" x="8" y="8" width="327" height="49"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-image" translatesAutoresizingMaskIntoConstraints="NO" id="0QY-ug-hWg" customClass="CircleView" customModule="SocialApp" customModuleProvider="target">
+                                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-image" translatesAutoresizingMaskIntoConstraints="NO" id="0QY-ug-hWg" customClass="CircleView" customModule="SocialApp" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="49" height="49"/>
                                                 <color key="backgroundColor" red="0.013759221881628036" green="0.58128303289413452" blue="0.6273047924041748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="49" id="4hj-Zo-O8f"/>
                                                     <constraint firstAttribute="width" constant="49" id="ATM-x1-7Xs"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="Dmm-Ca-xXI" appends="YES" id="eB6-sx-7fl"/>
+                                                </connections>
                                             </imageView>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add a caption" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pgw-tb-XUz">
                                                 <rect key="frame" x="59" y="0.0" width="209" height="49"/>
@@ -343,6 +347,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addImage" destination="0QY-ug-hWg" id="hNu-xx-QsW"/>
                         <outlet property="tableView" destination="rWV-5c-3cs" id="0fV-yW-cXg"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="goToSignIn" id="Xbn-PX-X0r"/>
                     </connections>
@@ -351,6 +356,11 @@
                 <tapGestureRecognizer id="qTP-XF-Jax">
                     <connections>
                         <action selector="signOutTapped:" destination="SdJ-7R-gFg" id="XTo-ve-CGS"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Dmm-Ca-xXI">
+                    <connections>
+                        <action selector="addImageTapped:" destination="SdJ-7R-gFg" id="LeG-PX-qOR"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
