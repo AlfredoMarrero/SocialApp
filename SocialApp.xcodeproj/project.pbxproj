@@ -22,6 +22,7 @@
 		BB3F5F381E71EB68000657B6 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F5F371E71EB68000657B6 /* FeedVC.swift */; };
 		BB3F5F3A1E72513A000657B6 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F5F391E72513A000657B6 /* CircleView.swift */; };
 		BB3F5F3C1E739D92000657B6 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F5F3B1E739D92000657B6 /* PostCell.swift */; };
+		BB47B04B1E758C6600C6FDF3 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB47B04A1E758C6600C6FDF3 /* DataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		BB3F5F371E71EB68000657B6 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		BB3F5F391E72513A000657B6 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		BB3F5F3B1E739D92000657B6 /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		BB47B04A1E758C6600C6FDF3 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		FF77F88F2BB3F8DB8D0A5556 /* Pods-SocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialApp/Pods-SocialApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 		BB3F5F121E6F57E2000657B6 /* SocialApp */ = {
 			isa = PBXGroup;
 			children = (
+				BB47B0491E758C3A00C6FDF3 /* Services */,
 				BB3F5F361E71AC2B000657B6 /* SocialApp.entitlements */,
 				BB3F5F2D1E70A931000657B6 /* Util */,
 				BB3F5F2A1E6F5D76000657B6 /* Resources */,
@@ -146,6 +149,14 @@
 				BB3F5F2E1E70A94D000657B6 /* Constants.swift */,
 			);
 			name = Util;
+			sourceTree = "<group>";
+		};
+		BB47B0491E758C3A00C6FDF3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BB47B04A1E758C6600C6FDF3 /* DataService.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		F859578F6A83A1454D209634 /* Pods */ = {
@@ -292,6 +303,7 @@
 				BB3F5F161E6F57E2000657B6 /* SignInVC.swift in Sources */,
 				BB3F5F311E70ABBD000657B6 /* RoundButton.swift in Sources */,
 				BB3F5F351E70B215000657B6 /* FancyButton.swift in Sources */,
+				BB47B04B1E758C6600C6FDF3 /* DataService.swift in Sources */,
 				BB3F5F381E71EB68000657B6 /* FeedVC.swift in Sources */,
 				BB3F5F141E6F57E2000657B6 /* AppDelegate.swift in Sources */,
 				BB3F5F2C1E70A7EA000657B6 /* FancyVIew.swift in Sources */,

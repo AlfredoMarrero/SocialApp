@@ -24,10 +24,7 @@ class SignInVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        print ("llego aqui sin problema +++++++++++++++++++++++++++++++++++")
-        if let _ = KeychainWrapper.standard.string(forKey: KEY_UID) {
-            
+            if let _ = KeychainWrapper.standard.string(forKey: KEY_UID) {
             performSegue(withIdentifier: "goToFeedVC", sender: nil)
         }
          
@@ -60,7 +57,8 @@ class SignInVC: UIViewController {
                 print ("Successfully authenticated with Firebase.")
                 
                 if let user = user {
-                    self.completeSignIn(id: user.uid)
+                    let userData = ["provider": credential.provider]
+                    self.completeSignIn(id: user.uid, userData: userData)
                 }
                 
             }
@@ -74,7 +72,7 @@ class SignInVC: UIViewController {
                 if error == nil {
                     print ("Message: Email user authenticated with firebase.")
                     if let user = user {
-                        self.completeSignIn(id: user.uid)
+                        self.completeSignIn(id: user.uid, userData: ["provider" : user.providerID])
                     }
                     
                 }
@@ -88,7 +86,7 @@ class SignInVC: UIViewController {
                             } else {
                                 print ("Message: Successfully authenticate with Firebase.")
                                 if let user = user {
-                                    self.completeSignIn(id: user.uid)
+                                    self.completeSignIn(id: user.uid, userData: ["provider" : user.providerID])
                                 }
                             }
                         })
@@ -98,7 +96,9 @@ class SignInVC: UIViewController {
         }
     }
     
-    func completeSignIn(id : String) {
+    func completeSignIn(id : String, userData: Dictionary<String, String>) {
+        
+        DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
         KeychainWrapper.standard.set(id, forKey: KEY_UID)
         print ("+++++++++++++++++++    +++++++++++++++++++++++++     +++")
         print (id)
