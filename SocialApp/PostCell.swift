@@ -22,6 +22,12 @@ class PostCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
-
+    
+    
+    func initCell (post: Post){
+    
+        self.caption.text = post.caption
+        self.likesLbl.text = String(post.likes)
+    
+    }
 }

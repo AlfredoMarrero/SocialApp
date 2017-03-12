@@ -15,6 +15,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var arrayOfPosts: [Post] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,13 +24,21 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.dataSource = self
         
         DataService.ds.REF_POST.observe(.value, with: { snapshot in
-            print (snapshot.value)
+            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot] {
+                
+                for post in snapshot {
+                    print (post)
+                    
+                    if let postDic = post.value as? Dictionary<String, AnyObject> {
+                    
+                        let fetchedPost = Post(postKey: post.key, postData: postDic)
+                        self.arrayOfPosts.append(fetchedPost)
+                    }
+                }
+            }
+            
+            self.tableView.reloadData()
         })
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     @IBAction func signOutTapped(_ sender: Any) {
@@ -44,11 +54,17 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "PostCell") as! PostCell
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as? PostCell {
+            cell.initCell(post: arrayOfPosts[indexPath.row])
+            return cell
+        }
+        
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return arrayOfPosts.count
     }
     
     
