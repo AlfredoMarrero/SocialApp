@@ -21,6 +21,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         tableView.delegate = self
         tableView.dataSource = self
         
+        DataService.ds.REF_POST.observe(.value, with: { snapshot in
+            print (snapshot.value)
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,7 +38,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         performSegue(withIdentifier: "goToSignIn", sender: nil)
     }
     
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
