@@ -12,12 +12,12 @@ import SwiftKeychainWrapper
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addImage: CircleView!
     
     var arrayOfPosts: [Post] = []
     var imagePicker: UIImagePickerController!
+    static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,10 +56,17 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell") as? PostCell {
-            cell.initCell(post: arrayOfPosts[indexPath.row])
+            
+            let post = arrayOfPosts[indexPath.row]
+            
+            if let img = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
+                cell.initCell(post: post,img: img)
+                
+            } else {
+                cell.initCell(post: post)
+            }
             return cell
         }
-        
         return PostCell()
     }
     
@@ -73,7 +80,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             addImage.image = image
         } else {
             print("Message: Image was not selected.")
-        
+            
         }
         imagePicker.dismiss(animated: true, completion: nil)
     }
