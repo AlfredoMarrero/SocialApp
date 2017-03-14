@@ -27,9 +27,7 @@ class SignInVC: UIViewController {
             if let _ = KeychainWrapper.standard.string(forKey: KEY_UID) {
             performSegue(withIdentifier: "goToFeedVC", sender: nil)
         }
-         
     }
-    
     
     @IBAction func facebookButtonTapped(_ sender: Any) {
         let facebookLogin = FBSDKLoginManager()
@@ -60,7 +58,6 @@ class SignInVC: UIViewController {
                     let userData = ["provider": credential.provider]
                     self.completeSignIn(id: user.uid, userData: userData)
                 }
-                
             }
         })
     }
@@ -100,8 +97,6 @@ class SignInVC: UIViewController {
         
         DataService.ds.createFirebaseDBUser(uid: id, userData: userData)
         KeychainWrapper.standard.set(id, forKey: KEY_UID)
-        print ("+++++++++++++++++++    +++++++++++++++++++++++++     +++")
-        print (id)
         performSegue(withIdentifier: "goToFeedVC", sender: nil)
     }
     

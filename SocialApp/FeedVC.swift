@@ -10,14 +10,14 @@ import UIKit
 import Firebase
 import SwiftKeychainWrapper
 
-class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addImage: CircleView!
     @IBOutlet weak var captionField: FancyField!
+    
     var imageSelected = false
 
-    
     var arrayOfPosts: [Post] = []
     var imagePicker: UIImagePickerController!
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
@@ -31,7 +31,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
-        
         
         DataService.ds.REF_POST.observe(.value, with: { snapshot in
             
@@ -131,7 +130,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     }
     
     func postToFirebase(imageUrl: String) {
-        let post: Dictionary<String, Any> = ["caption" : captionField.text! , "imageUrl" : imageUrl, "likes" : 0]
+        
+        let post: Dictionary<String, Any> = ["caption" : captionField.text! , "imageUrl" : imageUrl, "likes" : 0, "user": KeychainWrapper.standard.string(forKey: KEY_UID)! ]
     
         let firebasePost = DataService.ds.REF_POST.childByAutoId()
         firebasePost.setValue(post)
@@ -140,6 +140,30 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         addImage.image = UIImage(named: "add-image")
         
         tableView.reloadData()
+    }
+    
+    @IBAction func editUserTapped(_ sender: Any) {
+        
+        self.performSegue(withIdentifier: "showView", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showView" {
+        
+            var vc = segue.destination as UIViewController
+            var controller = vc.popoverPresentationController
+            
+            
+            if controller != nil {
+                controller?.delegate = self
+            }
+        }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        
+        //controller.frameOfPresentedViewInContainerView = CGRect(x:0,y:0,width: 60 ,height: 60)
+        return .formSheet
     }
     
 }

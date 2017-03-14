@@ -160,9 +160,24 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJ7-e7-4jS">
+                                        <rect key="frame" x="332" y="21" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="RLE-Z4-lEe"/>
+                                            <constraint firstAttribute="width" constant="35" id="mMa-SE-2Z0"/>
+                                        </constraints>
+                                        <state key="normal" image="CircledUser"/>
+                                        <connections>
+                                            <segue destination="kxW-ij-tTt" kind="popoverPresentation" identifier="showView" popoverAnchorView="HJ7-e7-4jS" id="0EU-Up-Onv">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.011708912439644337" green="0.78053790330886841" blue="0.86467117071151733" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="HJ7-e7-4jS" secondAttribute="trailing" constant="8" id="gbM-k5-cMB"/>
+                                    <constraint firstAttribute="bottom" secondItem="HJ7-e7-4jS" secondAttribute="bottom" constant="8" id="kl3-zn-lgK"/>
                                     <constraint firstItem="dd1-pl-Rba" firstAttribute="centerX" secondItem="3Cl-CS-Fwx" secondAttribute="centerX" id="t4l-na-M74"/>
                                     <constraint firstAttribute="height" constant="65" id="w9N-Du-CxG"/>
                                 </constraints>
@@ -312,6 +327,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="caption" destination="vEX-Mc-OM0" id="5GN-r8-kLP"/>
+                                            <outlet property="likeImg" destination="TMZ-HP-XWb" id="IMe-nW-uQ7"/>
                                             <outlet property="likesLbl" destination="LD5-GM-P7q" id="gdE-IH-utd"/>
                                             <outlet property="postImg" destination="AIT-qj-GkY" id="JqD-9Y-yed"/>
                                             <outlet property="profileImage" destination="6v6-Mi-k1t" id="OL7-9S-VcP"/>
@@ -368,10 +384,44 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1040.8" y="91.304347826086968"/>
+            <point key="canvasLocation" x="1044" y="124.58770614692655"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="eat-Tu-utJ">
+            <objects>
+                <viewController modalPresentationStyle="formSheet" id="kxW-ij-tTt" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KUk-So-Mia"/>
+                        <viewControllerLayoutGuide type="bottom" id="nhy-HA-lbN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qpx-Im-TNK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.01170891244" green="0.78053790329999995" blue="0.86467117069999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="300" height="300"/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SzI-hb-soP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1812" y="125"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Mno-oC-QUP">
+            <objects>
+                <viewController id="lMl-Ns-EMY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6ME-Zz-sQb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F7j-G8-5xd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>
+        <image name="CircledUser" width="50" height="50"/>
         <image name="Temp" width="179" height="121"/>
         <image name="add-image" width="88" height="88"/>
         <image name="add-post" width="88" height="88"/>
