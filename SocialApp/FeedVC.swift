@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SwiftKeychainWrapper
+import MZFormSheetPresentationController
 
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate {
     
@@ -142,23 +143,14 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         tableView.reloadData()
     }
     
-    @IBAction func editUserTapped(_ sender: Any) {
+    @IBAction func editUserButton(_ sender: Any) {
+        let navigationController = self.storyboard!.instantiateViewController(withIdentifier: "SheetPresentationVC") as! SheetPresentationVC
+        let formSheetController = MZFormSheetPresentationViewController(contentViewController: navigationController)
+        formSheetController.presentationController?.contentViewSize = CGSize(width: 250,height: 280)  // or pass in UILayoutFittingCompressedSize to size automatically with auto-layout
         
-        self.performSegue(withIdentifier: "showView", sender: self)
+        self.present(formSheetController, animated: true, completion: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showView" {
-        
-            var vc = segue.destination as UIViewController
-            var controller = vc.popoverPresentationController
-            
-            
-            if controller != nil {
-                controller?.delegate = self
-            }
-        }
-    }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         
