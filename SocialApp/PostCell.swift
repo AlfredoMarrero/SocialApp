@@ -18,6 +18,7 @@ class PostCell: UITableViewCell {
     @IBOutlet weak var likesLbl: UILabel!
     @IBOutlet weak var likeImg: UIImageView!
     
+    var userImageUrl: String!
     var post: Post!
     var likesRef = FIRDatabaseReference()
     var userNameRef = FIRDatabaseReference()
@@ -32,21 +33,43 @@ class PostCell: UITableViewCell {
     }
     
     
-    func initCell (post: Post, img: UIImage? = nil){
+    func initCell (post: Post, img: UIImage? = nil, userImg: UIImage? = nil){
         
         self.post = post
         
         likesRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
-        userNameRef = DataService.ds.REF_USERS.child(post.userId).child("userName")
+        
+        
+        userNameRef = DataService.ds.REF_USERS.child(post.userId)
         
         userNameRef.observeSingleEvent(of: .value, with: {snapshot in
-
-            if let userName = snapshot.value as? String {
-                self.userNameLbl.text = userName
-            } else {
-                print ("Unable to find name for user id: \(post.userId)")
+            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot] {
+                for value in snapshot {
+                    print (value.key, value.value!)
+                    
+                    if value.key == "userName" {
+                        self.userNameLbl.text = value.value as? String!
+                    } else if value.key == "userImageUrl" {
+                        if let url = value.value as? String {
+                            self.userImageUrl = url
+                            
+                            if userImg != nil {
+                                self.profileImage.image = userImg
+                            }else {
+                                let ref = FIRStorage.storage().reference(forURL: self.userImageUrl)
+                                ref.data(withMaxSize: 2 * 1024 * 1024, completion: { data, error in
+                                    if error != nil {
+                                        print("Message: Unable to download user profile image from database.")
+                                    }
+                                    else if let imageData = data {
+                                        self.profileImage.image = UIImage(data: imageData)
+                                    }
+                                })
+                            }
+                        }
+                    }
+                }
             }
-            
         })
         
         self.caption.text = post.caption

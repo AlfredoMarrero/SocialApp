@@ -18,7 +18,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     @IBOutlet weak var captionField: FancyField!
     
     var imageSelected = false
-
+    
     var arrayOfPosts: [Post] = []
     var imagePicker: UIImagePickerController!
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
@@ -38,9 +38,12 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             self.arrayOfPosts = []
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot] {
                 for post in snapshot {
-                    print (post)
+                    // print (post)
                     
                     if let postDic = post.value as? Dictionary<String, AnyObject> {
+                        
+                        print ("----------------------------------------------------------------------------------------")
+                        print (postDic)
                         
                         let fetchedPost = Post(postKey: post.key, postData: postDic)
                         self.arrayOfPosts.append(fetchedPost)
@@ -63,7 +66,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             let post = arrayOfPosts[indexPath.row]
             
             if let img = FeedVC.imageCache.object(forKey: post.imageUrl as NSString) {
-                cell.initCell(post: post,img: img)
+                
+                if let userImg = FeedVC.imageCache.object(forKey: post.userId as NSString) {
+                    cell.initCell(post: post,img: img, userImg: userImg)
+                
+                }else {
+                     cell.initCell(post: post,img: img)
+                
+                }
+                
+               
                 
             } else {
                 cell.initCell(post: post)
@@ -117,7 +129,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             let metadata = FIRStorageMetadata()
             metadata.contentType = "image/jpeg"
             DataService.ds.REF_POST_IMAGES.child(imageUid).put(imageData, metadata: metadata) { metadata, error in
-            
+                
                 if error != nil {
                     print("Message: Unable to load image to Firebase")
                 }else {
@@ -133,7 +145,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     func postToFirebase(imageUrl: String) {
         
         let post: Dictionary<String, Any> = ["caption" : captionField.text! , "imageUrl" : imageUrl, "likes" : 0, "user": KeychainWrapper.standard.string(forKey: KEY_UID)! ]
-    
+        
         let firebasePost = DataService.ds.REF_POST.childByAutoId()
         firebasePost.setValue(post)
         self.captionField.text = ""
