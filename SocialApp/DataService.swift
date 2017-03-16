@@ -17,6 +17,7 @@ let STORAGE_BASE = FIRStorage.storage().reference()
 class DataService {
     
     static let ds = DataService()
+    
     // Database references
     private var _REF_BASE = DB_BASE
     private var _REF_POST = DB_BASE.child("posts")
@@ -24,7 +25,8 @@ class DataService {
     
     // Storage references
     private var _REF_POST_IMAGES = STORAGE_BASE.child("post-pics")
-
+    private var _REF_POST_USER_IMG = STORAGE_BASE.child("user-image")
+    
     
     var REF_POST: FIRDatabaseReference {
         return _REF_POST
@@ -45,6 +47,10 @@ class DataService {
     // Post images
     var REF_POST_IMAGES: FIRStorageReference {
         return _REF_POST_IMAGES
+    }
+    
+    var REF_POST_USER_IMAGE: FIRStorageReference{
+        return _REF_POST_USER_IMG
     }
     
     var REF_USER_CURRENT: FIRDatabaseReference {

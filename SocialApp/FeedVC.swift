@@ -22,6 +22,9 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     var arrayOfPosts: [Post] = []
     var imagePicker: UIImagePickerController!
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
+    static var userNameCache: NSCache<NSString, NSString> = NSCache()
+    
+    private let currentUserId = KeychainWrapper.standard.string(forKey: KEY_UID)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +36,8 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadTableView), name: NSNotification.Name(rawValue: SHEET_PRESENTATION_DISMISSED), object: nil)
+        
         DataService.ds.REF_POST.observe(.value, with: { snapshot in
             
             self.arrayOfPosts = []
@@ -41,10 +46,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                     // print (post)
                     
                     if let postDic = post.value as? Dictionary<String, AnyObject> {
-                        
-                        print ("----------------------------------------------------------------------------------------")
-                        print (postDic)
-                        
                         let fetchedPost = Post(postKey: post.key, postData: postDic)
                         self.arrayOfPosts.append(fetchedPost)
                     }
@@ -57,6 +58,23 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        
+        if editingStyle == .delete {
+            print("Test: Deleted")
+            
+            let postToRemove = arrayOfPosts[indexPath.row]
+            
+            if postToRemove.userId == currentUserId {
+                 DataService.ds.REF_POST.child(postToRemove.postKey).removeValue()
+                
+                arrayOfPosts.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,11 +90,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                 
                 }else {
                      cell.initCell(post: post,img: img)
-                
                 }
-                
-               
-                
             } else {
                 cell.initCell(post: post)
             }
@@ -96,7 +110,6 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             imageSelected = true
         } else {
             print("Message: Image was not selected.")
-            
         }
         imagePicker.dismiss(animated: true, completion: nil)
     }
@@ -158,16 +171,25 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     @IBAction func editUserButton(_ sender: Any) {
         let navigationController = self.storyboard!.instantiateViewController(withIdentifier: "SheetPresentationVC") as! SheetPresentationVC
         let formSheetController = MZFormSheetPresentationViewController(contentViewController: navigationController)
-        formSheetController.presentationController?.contentViewSize = CGSize(width: 250,height: 280)  // or pass in UILayoutFittingCompressedSize to size automatically with auto-layout
+        formSheetController.presentationController?.contentViewSize = CGSize(width: 250,height: 280)
+        
+        let currentUserId = KeychainWrapper.standard.string(forKey: KEY_UID)
+       // if let image = FeedVC.imageCache.object(forKey: currentUserId! as NSString) {
+      //      navigationController.initFormSheetPresentaitonUI(userName: "Test user name", image: image)
+       // } else {
+      //      navigationController.initFormSheetPresentaitonUI(userName: "Test user name")
+      //  }
+        
         
         self.present(formSheetController, animated: true, completion: nil)
     }
     
-    
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        
         //controller.frameOfPresentedViewInContainerView = CGRect(x:0,y:0,width: 60 ,height: 60)
         return .formSheet
     }
     
+    func reloadTableView() {
+        tableView.reloadData()
+    }
 }

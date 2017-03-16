@@ -438,7 +438,7 @@
                                 <color key="barTintColor" red="0.054998792710000001" green="0.58027172090000001" blue="0.62606489659999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="eBq-ne-KQd">
-                                <rect key="frame" x="65.5" y="47.5" width="120" height="165"/>
+                                <rect key="frame" x="65.5" y="54" width="120" height="152"/>
                                 <subviews>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user-picture" translatesAutoresizingMaskIntoConstraints="NO" id="2GU-4s-Wzj" customClass="CircleView" customModule="SocialApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
@@ -452,8 +452,8 @@
                                             <outletCollection property="gestureRecognizers" destination="2WO-Ub-5Wc" appends="YES" id="U0e-t6-a02"/>
                                         </connections>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter user name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n97-n6-3W1">
-                                        <rect key="frame" x="0.0" y="135" width="120" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter user name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n97-n6-3W1">
+                                        <rect key="frame" x="0.0" y="135" width="120" height="17"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -491,6 +491,10 @@
         <scene sceneID="Mno-oC-QUP">
             <objects>
                 <viewController id="lMl-Ns-EMY" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FOC-dq-X85"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ax3-KV-t9O"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6ME-Zz-sQb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

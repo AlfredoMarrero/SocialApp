@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SwiftKeychainWrapper
 
 class PostCell: UITableViewCell {
     
@@ -32,23 +33,22 @@ class PostCell: UITableViewCell {
         likeImg.isUserInteractionEnabled = true
     }
     
-    
     func initCell (post: Post, img: UIImage? = nil, userImg: UIImage? = nil){
         
         self.post = post
-        
         likesRef = DataService.ds.REF_USER_CURRENT.child("likes").child(post.postKey)
-        
-        
         userNameRef = DataService.ds.REF_USERS.child(post.userId)
-        
-        userNameRef.observeSingleEvent(of: .value, with: {snapshot in
+        userNameRef.observe(.value, with:{ snapshot in
+            
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot] {
                 for value in snapshot {
-                    print (value.key, value.value!)
                     
                     if value.key == "userName" {
                         self.userNameLbl.text = value.value as? String!
+                        
+                        if let userId = KeychainWrapper.standard.string(forKey: KEY_UID), post.userId == userId {
+                            FeedVC.userNameCache.setObject(self.userNameLbl.text! as NSString , forKey: userId as NSString)
+                        }
                     } else if value.key == "userImageUrl" {
                         if let url = value.value as? String {
                             self.userImageUrl = url
@@ -62,7 +62,11 @@ class PostCell: UITableViewCell {
                                         print("Message: Unable to download user profile image from database.")
                                     }
                                     else if let imageData = data {
-                                        self.profileImage.image = UIImage(data: imageData)
+                                        
+                                        if let img = UIImage(data: imageData) {
+                                            self.profileImage.image = img
+                                            FeedVC.imageCache.setObject(img, forKey: post.userId as NSString)
+                                        }
                                     }
                                 })
                             }
@@ -71,7 +75,7 @@ class PostCell: UITableViewCell {
                 }
             }
         })
-        
+
         self.caption.text = post.caption
         self.likesLbl.text = String(post.likes)
         
